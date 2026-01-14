@@ -3,7 +3,9 @@ from .utils import get_all_custom_models, check_csv_errors
 from uploads.models import Upload
 from django.conf import settings
 from django.contrib import messages
-from .tasks import import_data_task
+from .tasks import import_data_task, export_data_task
+from django.core.management import call_command
+
 
 def import_data(request):
 
@@ -40,4 +42,24 @@ def import_data(request):
         }
 
     return render(request, 'dataentry/importdata.html',context)
+
+
+def export_data(request):
+    if request.method == 'POST':
+        model_name = request.POST.get('model_name')
+
+        export_data_task.delay(model_name)
+        
+        messages.success(request, 'Your Data is being Exported; you will be Notified once it is done.')
+
+        return redirect('export_data')
+
+    else:
+        custom_models = get_all_custom_models()
+
+        context = {
+            'custom_models':custom_models
+        }
+
+    return render(request, 'dataentry/exportdata.html',context)
 
