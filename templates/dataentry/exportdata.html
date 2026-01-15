@@ -1,43 +1,29 @@
-{% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-    <title>Export Data</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% extends 'base.html' %}
     
-    <script src="{% static 'js/custom.js' %}"></script>
+    {% block content %}
+        <div class="container mt-5 alert-success shadow" style="max-width: 600px; padding: 50px; border-radius: 10px;">
+            <h3 class="text-center">Export Data From Database Tables</h3>
+            <form action="{% url 'export_data' %}" method="POST" style="max-width: 600px; margin:auto; padding-top: 50px;">
+                {% csrf_token %}
 
-</head>
+                <div class="form-group">
+                    <label for="model_name">Select Database Table</label>
+                    <select name="model_name" class="form-control" required>
+                        <option value="" disabled selected>Select</option>
 
-<body>
-    <div class="container">
-        <h3 class="text-center">Export Data From Database Tables</h3>
-        <form action="{% url 'export_data' %}" method="POST" style="max-width: 600px; margin:auto; padding-top: 50px;">
-            {% csrf_token %}
+                        {% for model in custom_models%}
+                            <option value="{{model}}">{{model}}</option>
+                        {% endfor %}
+                        
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="model_name">Select Database Table</label>
-                <select name="model_name" class="form-control" required>
-                    <option value="" disabled selected>Select</option>
+                <div class="form-group">
+                    <input type="submit" value="Export Data" class="btn btn-success">
+                </div>
 
-                    {% for model in custom_models%}
-                        <option value="{{model}}">{{model}}</option>
-                    {% endfor %}
-                    
-                </select>
-            </div>
+                {% include 'alerts.html' %}
 
-            <input type="submit" value="Export Data" class="btn btn-primary">
-
-            {% include 'alerts.html' %}
-
-        </form>
-    </div>
-</body>
-</html>
-
+            </form>
+        </div>
+    {% endblock %}
