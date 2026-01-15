@@ -23,6 +23,8 @@ INSTALLED_APPS = [
     'uploads',
     'crispy_forms',
     'crispy_bootstrap5',
+    'emails',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -132,6 +134,10 @@ DEFAULT_FROM_EMAIL = 'Automate with Django <neea2828@gmail.com>'
 
 DEFAULT_TO_EMAIL = 'keykoky4@gmail.com'
 
-
-
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'height': 200,
+    },
+}
