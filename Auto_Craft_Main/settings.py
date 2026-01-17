@@ -8,7 +8,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -146,3 +146,7 @@ EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
 ANYMAIL = {
     "SENDINBLUE_API_KEY": config("SENDINBLUE_API_KEY"),
 }
+
+
+CSRF_TRUSTED_ORIGINS = ['https://bethany-subtrochleariform-zoey.ngrok-free.dev']
+BASE_URL = 'https://bethany-subtrochleariform-zoey.ngrok-free.dev'
